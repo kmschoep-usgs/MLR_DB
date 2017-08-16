@@ -1,0 +1,62 @@
+databaseChangeLog:
+  - preConditions:
+    - dbms:
+        type: postgresql
+
+  - changeSet:
+      author: mhines
+      id: "create.table.state"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+        - not:
+          - tableExists:
+              tableName: state
+      changes:
+        - sqlFile:
+            path: state.sql
+            relativeToChangelogFile: true
+        - rollback: drop table mlr_data.state;
+
+  - changeSet:
+      author: kmschoep
+      id: "alter.column.state_id.default.sequence"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+        - not:
+          - tableExists:
+              tableName: state
+      changes:
+        - sql: alter table mlr_data.state alter column state_id set default nextval('mlr_data.state_seq');
+        - rollback: alter table mlr_data.state alter column state_id set default null;
+
+  - changeSet:
+      author: kmschoep
+      id: "alter.sequence.state_seq.owned_by"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter sequence mlr_data.state_seq owned by mlr_data.state.state_id;
+        - rollback: alter sequence mlr_data.state_seq owned by none;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.index.state.state_code_idx"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: create index state_code_idx on mlr_data.state (code);
+        - rollback: drop index mlr_data.state_code_idx;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.index.state.state_name_idx"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: create index state_name_idx on mlr_data.state (name);
+        - rollback: drop index mlr_data.state_name_idx;

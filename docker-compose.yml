@@ -1,0 +1,10 @@
+version: '2'
+services:
+  mlr_db:
+    build:
+      context: .
+    environment:
+      - POSTGRES_DB=mlr
+    ports:
+      - "5435:5432"
+    container_name: mlr_db

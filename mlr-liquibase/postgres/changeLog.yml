@@ -1,0 +1,47 @@
+databaseChangeLog:
+  - preConditions:
+    - dbms:
+        type: postgresql
+    - runningAs:
+        username: postgres
+
+  - changeSet:
+      author: kmschoep
+      id: "alter.databasechangelog.owner.mlr"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter table public.databasechangelog owner to mlr;
+        - rollback: alter table public.databasechangelog owner to postgres;
+        
+  - changeSet:
+      author: kmschoep
+      id: "alter.databasechangeloglock.owner.mlr"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter table public.databasechangeloglock owner to mlr;
+        - rollback: alter table public.databasechangeloglock owner to postgres;
+        
+  - changeSet:
+      author: kmschoep
+      id: "create.extension.adminpack"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: create extension adminpack;
+        - rollback: drop extension adminpack;
+        
+  - changeSet:
+      author: kmschoep
+      id: "create.extension.postgis"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: create extension postgis;
+        - rollback: drop extension postgis;
+        

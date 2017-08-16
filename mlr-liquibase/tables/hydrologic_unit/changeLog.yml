@@ -1,0 +1,59 @@
+databaseChangeLog:
+  - preConditions:
+    - dbms:
+        type: postgresql
+
+  - changeSet:
+      author: mhines
+      id: "create.table.hydrologic_unit"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+        - not:
+          - tableExists:
+              tableName: hydrologic_unit
+      changes:
+        - sqlFile:
+            path: hydrologic_unit.sql
+            relativeToChangelogFile: true
+        - rollback: drop table mlr_data.hydrologic_unit;
+
+  - changeSet:
+      author: kmschoep
+      id: "alter.column.hydrologic_unit_id.default.sequence"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter table mlr_data.hydrologic_unit alter column hydrologic_unit_id set default nextval('mlr_data.hydrologic_unit_seq');
+        - rollback: alter table mlr_data.hydrologic_unit alter column hydrologic_unit_id set default null;
+
+  - changeSet:
+      author: kmschoep
+      id: "alter.sequence.hydrologic_unit_seq.owned_by"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter sequence mlr_data.hydrologic_unit_seq owned by mlr_data.hydrologic_unit.hydrologic_unit_id;
+        - rollback: alter sequence mlr_data.hydrologic_unit_seq owned by none;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.index.hydrologic_unit.hydrologic_unit_code_idx"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: create index hydrologic_unit_code_idx on mlr_data.hydrologic_unit (code);
+        - rollback: drop index mlr_data.hydrologic_unit_code_idx;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.index.hydrologic_unit.hydrologic_unit_name_idx"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: create index hydrologic_unit_name_idx on mlr_data.hydrologic_unit (name);
+        - rollback: drop index mlr_data.hydrologic_unit_name_idx;

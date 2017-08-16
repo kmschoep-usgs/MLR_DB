@@ -1,0 +1,50 @@
+databaseChangeLog:
+  - preConditions:
+    - dbms:
+        type: postgresql
+
+  - changeSet:
+      author: kmschoep
+      id: "create.role.mlr_data"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+        - sqlCheck:
+            expectedResult: 0
+            sql: select count(*) from pg_roles where rolname = 'mlr_data';
+      changes:
+        - sql: create role mlr_data with login password '${MLR_DATA_PASSWORD}';
+        - rollback: drop role if exists mlr_data;
+
+  - changeSet:
+      author: kmschoep
+      id: "grant.mlr_data.to.mlr"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: grant mlr_data to mlr;
+        - rollback: revoke mlr_data from mlr;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.role.mlr_user"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+        - sqlCheck:
+            expectedResult: 0
+            sql: select count(*) from pg_roles where rolname = 'mlr_user';
+      changes:
+        - sql: create role mlr_user with login password '${MLR_USER_PASSWORD}';
+        - rollback: drop role if exists mlr_user;
+        
+  - changeSet:
+      author: kmschoep
+      id: "grant.mlr_user.to.mlr"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: grant mlr_user to mlr;
+        - rollback: revoke mlr_user from mlr;

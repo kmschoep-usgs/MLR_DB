@@ -1,0 +1,60 @@
+databaseChangeLog:
+  - preConditions:
+    - dbms:
+        type: postgresql
+
+  - changeSet:
+      author: kmschoep
+      id: "create.table.altitude_datum"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+        - not:
+          - tableExists:
+              tableName: altitude_datum
+      changes:
+        - sqlFile:
+            path: altitude_datum.sql
+            relativeToChangelogFile: true
+        - rollback: drop table mlr_data.altitude_datum;
+
+  - changeSet:
+      author: kmschoep
+      id: "alter.column.altitude_datum_id.default.sequence"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter table mlr_data.altitude_datum alter column altitude_datum_id set default nextval('mlr_data.altitude_datum_seq');
+        - rollback: alter table mlr_data.altitude_datum alter column altitude_datum_id set default null;
+
+  - changeSet:
+      author: kmschoep
+      id: "alter.sequence.altitude_datum_seq.owned_by"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter sequence mlr_data.altitude_datum_seq owned by mlr_data.altitude_datum.altitude_datum_id;
+        - rollback: alter sequence mlr_data.altitude_datum_seq owned by none;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.index.altitude_datum.altitude_datum_code_idx"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: create index altitude_datum_code_idx on mlr_data.altitude_datum (code);
+        - rollback: drop index mlr_data.altitude_datum_code_idx;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.index.altitude_datum.altitude_datum_name_idx"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: create index altitude_datum_name_idx on mlr_data.altitude_datum (name);
+        - rollback: drop index mlr_data.altitude_datum_name_idx;
+        

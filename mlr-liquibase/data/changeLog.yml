@@ -1,0 +1,263 @@
+databaseChangeLog:
+  - preConditions:
+    - dbms:
+        type: postgresql
+
+  - changeSet:
+      id: load.agency
+      author: mhines
+      runOnChange: true
+      changes:
+        - delete:
+            tableName: agency
+            schemaName: mlr_data
+        - loadData:
+            encoding: UTF-8
+            file: agency.csv
+            relativeToChangelogFile: true
+            separator: ','
+            quotchar: '"'
+            tableName: agency
+            schemaName: mlr_data
+        - rollback: select 'no rollback - you must restore previous agency.csv and rerun manually';
+
+  - changeSet:
+      id: load.aquifer
+      author: mhines
+      runOnChange: true
+      changes:
+        - delete:
+            tableName: aquifer
+            schemaName: mlr_data
+        - loadData:
+            encoding: UTF-8
+            file: aquifer.csv
+            relativeToChangelogFile: true
+            separator: ','
+            quotchar: '"'
+            tableName: aquifer
+            schemaName: mlr_data
+        - rollback: select 'no rollback - you must restore previous aquifer.csv and rerun manually';
+
+  - changeSet:
+      id: load.national_aquifer
+      author: mhines
+      runOnChange: true
+      changes:
+        - delete:
+            tableName: national_aquifer
+            schemaName: mlr_data
+        - loadData:
+            encoding: UTF-8
+            file: national_aquifer.csv
+            relativeToChangelogFile: true
+            separator: ','
+            quotchar: '"'
+            tableName: national_aquifer
+            schemaName: mlr_data
+        - rollback: select 'no rollback - you must restore previous national_aquifer.csv and rerun manually';
+
+  - changeSet:
+      id: load.country
+      author: mhines
+      runOnChange: true
+      changes:
+        - delete:
+            tableName: country
+            schemaName: mlr_data
+        - loadData:
+            encoding: UTF-8
+            file: country.csv
+            relativeToChangelogFile: true
+            separator: ','
+            quotchar: '"'
+            tableName: country
+            schemaName: mlr_data
+        - rollback: select 'no rollback - you must restore previous country.csv and rerun manually';
+
+  - changeSet:
+      id: load.state
+      author: mhines
+      runOnChange: true
+      changes:
+        - delete:
+            tableName: state
+            schemaName: mlr_data
+        - loadData:
+            encoding: UTF-8
+            file: state.csv
+            relativeToChangelogFile: true
+            separator: ','
+            quotchar: '"'
+            tableName: state
+            schemaName: mlr_data
+        - rollback: select 'no rollback - you must restore previous state.csv and rerun manually';
+
+  - changeSet:
+      id: load.county
+      author: mhines
+      runOnChange: true
+      changes:
+        - delete:
+            tableName: county
+            schemaName: mlr_data
+        - loadData:
+            encoding: UTF-8
+            file: county.csv
+            relativeToChangelogFile: true
+            separator: ','
+            quotchar: '"'
+            tableName: county
+            schemaName: mlr_data
+        - rollback: select 'no rollback - you must restore previous county.csv and rerun manually';
+
+  - changeSet:
+      id: load.minor_civil_division
+      author: mhines
+      runOnChange: true
+      changes:
+        - delete:
+            tableName: minor_civil_division
+            schemaName: mlr_data
+        - loadData:
+            encoding: UTF-8
+            file: minor_civil_division.csv
+            relativeToChangelogFile: true
+            separator: ','
+            quotchar: '"'
+            tableName: minor_civil_division
+            schemaName: mlr_data
+        - rollback: select 'no rollback - you must restore previous minor_civil_division.csv and rerun manually';
+
+  - changeSet:
+      id: load.horizontal_accuracy
+      author: mhines
+      runOnChange: true
+      changes:
+        - delete:
+            tableName: horizontal_accuracy
+            schemaName: mlr_data
+        - loadData:
+            encoding: UTF-8
+            file: horizontal_accuracy.csv
+            relativeToChangelogFile: true
+            separator: ','
+            quotchar: '"'
+            tableName: horizontal_accuracy
+            schemaName: mlr_data
+        - rollback: select 'no rollback - you must restore previous horizontal_accuracy.csv and rerun manually';
+
+  - changeSet:
+      id: load.horizontal_datum
+      author: mhines
+      runOnChange: true
+      changes:
+        - delete:
+            tableName: horizontal_datum
+            schemaName: mlr_data
+        - loadData:
+            encoding: UTF-8
+            file: horizontal_datum.csv
+            relativeToChangelogFile: true
+            separator: ','
+            quotchar: '"'
+            tableName: horizontal_datum
+            schemaName: mlr_data
+        - rollback: select 'no rollback - you must restore previous horizontal_datum.csv and rerun manually';
+
+  - changeSet:
+      id: load.horizontal_method
+      author: mhines
+      runOnChange: true
+      changes:
+        - delete:
+            tableName: horizontal_method
+            schemaName: mlr_data
+        - loadData:
+            encoding: UTF-8
+            file: horizontal_method.csv
+            relativeToChangelogFile: true
+            separator: ','
+            quotchar: '"'
+            tableName: horizontal_method
+            schemaName: mlr_data
+        - rollback: select 'no rollback - you must restore previous horizontal_method.csv and rerun manually';
+
+  - changeSet:
+      id: load.altitude_datum
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: CONTINUE
+      author: mhines
+      runOnChange: true
+      changes:
+        - delete:
+            tableName: altitude_datum
+            schemaName: mlr_data
+        - loadData:
+            encoding: UTF-8
+            file: altitude_datum.csv
+            relativeToChangelogFile: true
+            separator: ','
+            quotchar: '"'
+            tableName: altitude_datum
+            schemaName: mlr_data
+        - rollback: select 'no rollback - you must restore previous altitude_datum.csv and rerun manually';
+
+  - changeSet:
+      id: load.altitude_method
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: CONTINUE
+      author: kmschoep
+      runOnChange: true
+      changes:
+        - delete:
+            tableName: altitude_method
+            schemaName: mlr_data
+        - loadData:
+            encoding: UTF-8
+            file: altitude_method.csv
+            relativeToChangelogFile: true
+            separator: ','
+            quotchar: '"'
+            tableName: altitude_method
+            schemaName: mlr_data
+        - rollback: select 'no rollback - you must restore previous altitude_method.csv and rerun manually';
+
+  - changeSet:
+      id: load.hydrologic_unit
+      author: mhines
+      runOnChange: true
+      changes:
+        - delete:
+            tableName: hydrologic_unit
+            schemaName: mlr_data
+        - loadData:
+            encoding: UTF-8
+            file: hydrologic_unit.csv
+            relativeToChangelogFile: true
+            separator: ','
+            quotchar: '"'
+            tableName: hydrologic_unit
+            schemaName: mlr_data
+        - rollback: select 'no rollback - you must restore previous hydrologic_unit.csv and rerun manually';
+
+
+  - changeSet:
+      id: load.use
+      author: kmschoep
+      runOnChange: true
+      changes:
+        - delete:
+            tableName: use
+            schemaName: mlr_data
+        - loadData:
+            encoding: UTF-8
+            file: use.csv
+            relativeToChangelogFile: true
+            separator: ','
+            quotchar: '"'
+            tableName: use
+            schemaName: mlr_data
+        - rollback: select 'no rollback - you must restore previous use.csv and rerun manually';

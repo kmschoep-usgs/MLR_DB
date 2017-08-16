@@ -1,0 +1,59 @@
+databaseChangeLog:
+  - preConditions:
+    - dbms:
+        type: postgresql
+
+  - changeSet:
+      author: kmschoep
+      id: "create.table.monitoring_location_type"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+        - not:
+          - tableExists:
+              tableName: monitoring_location_type
+      changes:
+        - sqlFile:
+            path: monitoring_location_type.sql
+            relativeToChangelogFile: true
+        - rollback: drop table mlr_data.monitoring_location_type;
+
+  - changeSet:
+      author: kmschoep
+      id: "alter.column.monitoring_location_type_id.default.sequence"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter table mlr_data.monitoring_location_type alter column monitoring_location_type_id set default nextval('mlr_data.monitoring_location_type_seq');
+        - rollback: alter table mlr_data.monitoring_location_type alter column monitoring_location_type_id set default null;
+
+  - changeSet:
+      author: kmschoep
+      id: "alter.sequence.monitoring_location_type_seq.owned_by"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter sequence mlr_data.monitoring_location_type_seq owned by mlr_data.monitoring_location_type.monitoring_location_type_id;
+        - rollback: alter sequence mlr_data.monitoring_location_type_seq owned by none;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.index.monitoring_location_type.type_code_idx"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: create index type_code_idx on mlr_data.monitoring_location_type (code);
+        - rollback: drop index mlr_data.type_code_idx;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.index.monitoring_location_type.type_name_idx"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: create index type_name_idx on mlr_data.monitoring_location_type (name);
+        - rollback: drop index mlr_data.type_name_idx;

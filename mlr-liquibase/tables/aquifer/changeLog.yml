@@ -1,0 +1,59 @@
+databaseChangeLog:
+  - preConditions:
+    - dbms:
+        type: postgresql
+
+  - changeSet:
+      author: mhines
+      id: "create.table.aquifer"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+        - not:
+          - tableExists:
+              tableName: aquifer
+      changes:
+        - sqlFile:
+            path: aquifer.sql
+            relativeToChangelogFile: true
+        - rollback: drop table mlr_data.aquifer;
+
+  - changeSet:
+      author: kmschoep
+      id: "alter.column.aquifer_id.default.sequence"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter table mlr_data.aquifer alter column aquifer_id set default nextval('mlr_data.aquifer_seq');
+        - rollback: alter table mlr_data.aquifer alter column aquifer_id set default null;
+
+  - changeSet:
+      author: kmschoep
+      id: "alter.sequence.aquifer_seq.owned_by"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter sequence mlr_data.aquifer_seq owned by mlr_data.aquifer.aquifer_id;
+        - rollback: alter sequence mlr_data.aquifer_seq owned by none;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.index.aquifer.aquifer_code_idx"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: create index aquifer_code_idx on mlr_data.aquifer (code);
+        - rollback: drop index mlr_data.aquifer_code_idx;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.index.aquifer.aquifer_name_idx"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: create index aquifer_name_idx on mlr_data.aquifer (name);
+        - rollback: drop index mlr_data.aquifer_name_idx;

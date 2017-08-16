@@ -1,0 +1,324 @@
+databaseChangeLog:
+  - preConditions:
+    - dbms:
+        type: postgresql
+
+  - changeSet:
+      author: kmschoep
+      id: "create.sequence.agency_seq"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: create sequence mlr_data.agency_seq increment 1 start 1 minvalue 1 maxvalue 999999999999999999;
+        - rollback: drop sequence mlr_data.agency_seq;
+
+  - changeSet:
+      author: kmschoep
+      id: "alter.sequence.agency_seq.owner"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter table mlr_data.agency_seq owner to mlr_data;
+        - rollback: alter table mlr_data.agency_seq owner to mlr;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.sequence.altitude_datum_seq"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: create sequence mlr_data.altitude_datum_seq increment 1 start 1 minvalue 1 maxvalue 999999999999999999;
+        - rollback: drop sequence mlr_data.altitude_datum_seq;
+
+  - changeSet:
+      author: kmschoep
+      id: "alter.sequence.altitude_datum_seq.owner"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter table mlr_data.altitude_datum_seq owner to mlr_data;
+        - rollback: alter table mlr_data.altitude_datum_seq owner to mlr;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.sequence.altitude_method_seq"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: create sequence mlr_data.altitude_method_seq increment 1 start 1 minvalue 1 maxvalue 999999999999999999;
+        - rollback: drop sequence mlr_data.altitude_method_seq;
+
+  - changeSet:
+      author: kmschoep
+      id: "alter.sequence.altitude_method_seq.owner"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter table mlr_data.altitude_method_seq owner to mlr_data;
+        - rollback: alter table mlr_data.altitude_method_seq owner to mlr;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.sequence.aquifer_seq"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: create sequence mlr_data.aquifer_seq increment 1 start 1 minvalue 1 maxvalue 999999999999999999;
+        - rollback: drop sequence mlr_data.aquifer_seq;
+
+  - changeSet:
+      author: kmschoep
+      id: "alter.sequence.aquifer_seq.owner"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter table mlr_data.aquifer_seq owner to mlr_data;
+        - rollback: alter table mlr_data.aquifer_seq owner to mlr;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.sequence.country_seq"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: create sequence mlr_data.country_seq increment 1 start 1 minvalue 1 maxvalue 999999999999999999;
+        - rollback: drop sequence mlr_data.country_seq;
+
+  - changeSet:
+      author: kmschoep
+      id: "alter.sequence.country_seq.owner"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter table mlr_data.country_seq owner to mlr_data;
+        - rollback: alter table mlr_data.country_seq owner to mlr;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.sequence.county_seq"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: create sequence mlr_data.county_seq increment 1 start 1 minvalue 1 maxvalue 999999999999999999;
+        - rollback: drop sequence mlr_data.county_seq;
+
+  - changeSet:
+      author: kmschoep
+      id: "alter.sequence.county_seq.owner"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter table mlr_data.county_seq owner to mlr_data;
+        - rollback: alter table mlr_data.county_seq owner to mlr;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.sequence.horizontal_accuracy_seq"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: create sequence mlr_data.horizontal_accuracy_seq increment 1 start 1 minvalue 1 maxvalue 999999999999999999;
+        - rollback: drop sequence mlr_data.horizontal_accuracy_seq;
+
+  - changeSet:
+      author: kmschoep
+      id: "alter.sequence.horizontal_accuracy_seq.owner"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter table mlr_data.horizontal_accuracy_seq owner to mlr_data;
+        - rollback: alter table mlr_data.horizontal_accuracy_seq owner to mlr;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.sequence.horizontal_datum_seq"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: create sequence mlr_data.horizontal_datum_seq increment 1 start 1 minvalue 1 maxvalue 999999999999999999;
+        - rollback: drop sequence mlr_data.horizontal_datum_seq;
+
+  - changeSet:
+      author: kmschoep
+      id: "alter.sequence.horizontal_datum_seq.owner"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter table mlr_data.horizontal_datum_seq owner to mlr_data;
+        - rollback: alter table mlr_data.horizontal_datum_seq owner to mlr;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.sequence.horizontal_method_seq"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: create sequence mlr_data.horizontal_method_seq increment 1 start 1 minvalue 1 maxvalue 999999999999999999;
+        - rollback: drop sequence mlr_data.horizontal_method_seq;
+
+  - changeSet:
+      author: kmschoep
+      id: "alter.sequence.horizontal_method_seq.owner"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter table mlr_data.horizontal_method_seq owner to mlr_data;
+        - rollback: alter table mlr_data.horizontal_method_seq owner to mlr;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.sequence.hydrologic_unit_seq"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: create sequence mlr_data.hydrologic_unit_seq increment 1 start 1 minvalue 1 maxvalue 999999999999999999;
+        - rollback: drop sequence mlr_data.hydrologic_unit_seq;
+
+  - changeSet:
+      author: kmschoep
+      id: "alter.sequence.hydrologic_unit_seq.owner"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter table mlr_data.hydrologic_unit_seq owner to mlr_data;
+        - rollback: alter table mlr_data.hydrologic_unit_seq owner to mlr;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.sequence.minor_civil_division_seq"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: create sequence mlr_data.minor_civil_division_seq increment 1 start 1 minvalue 1 maxvalue 999999999999999999;
+        - rollback: drop sequence mlr_data.minor_civil_division_seq;
+
+  - changeSet:
+      author: kmschoep
+      id: "alter.sequence.minor_civil_division_seq.owner"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter table mlr_data.minor_civil_division_seq owner to mlr_data;
+        - rollback: alter table mlr_data.minor_civil_division_seq owner to mlr;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.sequence.monitoring_location_seq"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: create sequence mlr_data.monitoring_location_seq increment 1 start 1 minvalue 1 maxvalue 999999999999999999;
+        - rollback: drop sequence mlr_data.monitoring_location_seq;
+
+  - changeSet:
+      author: kmschoep
+      id: "alter.sequence.monitoring_location_seq.owner"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter table mlr_data.monitoring_location_seq owner to mlr_data;
+        - rollback: alter table mlr_data.monitoring_location_seq owner to mlr;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.sequence.monitoring_location_type_seq"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: create sequence mlr_data.monitoring_location_type_seq increment 1 start 1 minvalue 1 maxvalue 999999999999999999;
+        - rollback: drop sequence mlr_data.monitoring_location_type_seq;
+
+  - changeSet:
+      author: kmschoep
+      id: "alter.sequence.monitoring_location_type_seq.owner"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter table mlr_data.monitoring_location_type_seq owner to mlr_data;
+        - rollback: alter table mlr_data.monitoring_location_type_seq owner to mlr;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.sequence.national_aquifer_seq"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: create sequence mlr_data.national_aquifer_seq increment 1 start 1 minvalue 1 maxvalue 999999999999999999;
+        - rollback: drop sequence mlr_data.national_aquifer_seq;
+
+  - changeSet:
+      author: kmschoep
+      id: "alter.sequence.national_aquifer_seq.owner"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter table mlr_data.national_aquifer_seq owner to mlr_data;
+        - rollback: alter table mlr_data.national_aquifer_seq owner to mlr;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.sequence.state_seq"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: create sequence mlr_data.state_seq increment 1 start 1 minvalue 1 maxvalue 999999999999999999;
+        - rollback: drop sequence mlr_data.state_seq;
+
+  - changeSet:
+      author: kmschoep
+      id: "alter.sequence.state_seq.owner"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter table mlr_data.state_seq owner to mlr_data;
+        - rollback: alter table mlr_data.state_seq owner to mlr;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.sequence.use_seq"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: create sequence mlr_data.use_seq increment 1 start 1 minvalue 1 maxvalue 999999999999999999;
+        - rollback: drop sequence mlr_data.use_seq;
+
+  - changeSet:
+      author: kmschoep
+      id: "alter.sequence.use_seq.owner"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter table mlr_data.use_seq owner to mlr_data;
+        - rollback: alter table mlr_data.use_seq owner to mlr;

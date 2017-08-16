@@ -1,0 +1,27 @@
+databaseChangeLog:
+  - preConditions:
+    - dbms:
+        type: postgresql
+
+  - changeSet:
+      author: kmschoep
+      id: "create.schema.mlr.data"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+        - sqlCheck:
+            expectedResult: 0
+            sql: select count(*) from pg_namespace where nspname = 'mlr_data';
+      changes:
+        - sql: create schema mlr_data authorization mlr_data;
+        - rollback: drop schema if exists mlr_data cascade;
+
+  - changeSet:
+      author: kmschoep
+      id: "grant.usage.on.schema.mlr_data.to.mlr_user"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: grant usage on schema mlr_data to mlr_user;
+        - rollback: revoke usage on schema mlr_data from mlr_user;

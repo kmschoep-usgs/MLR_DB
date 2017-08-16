@@ -1,0 +1,59 @@
+databaseChangeLog:
+  - preConditions:
+    - dbms:
+        type: postgresql
+
+  - changeSet:
+      author: kmschoep
+      id: "create.table.altitude_method"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+        - not:
+          - tableExists:
+              tableName: altitude_method
+      changes:
+        - sqlFile:
+            path: altitude_method.sql
+            relativeToChangelogFile: true
+        - rollback: drop table mlr_data.altitude_method;
+
+  - changeSet:
+      author: kmschoep
+      id: "alter.column.altitude_method_id.default.sequence"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter table mlr_data.altitude_method alter column altitude_method_id set default nextval('mlr_data.altitude_method_seq');
+        - rollback: alter table mlr_data.altitude_method alter column altitude_method_id set default null;
+
+  - changeSet:
+      author: kmschoep
+      id: "alter.sequence.altitude_method_seq.owned_by"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter sequence mlr_data.altitude_method_seq owned by mlr_data.altitude_method.altitude_method_id;
+        - rollback: alter sequence mlr_data.altitude_method_seq owned by none;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.index.altitude_method.altitude_method_code_idx"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: create index altitude_method_code_idx on mlr_data.altitude_method (code);
+        - rollback: drop index mlr_data.altitude_method_code_idx;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.index.altitude_datum.altitude_method_name_idx"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: create index altitude_method_name_idx on mlr_data.altitude_method (name);
+        - rollback: drop index mlr_data.altitude_method_name_idx;

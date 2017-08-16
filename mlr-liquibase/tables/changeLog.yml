@@ -1,0 +1,76 @@
+databaseChangeLog:
+  - preConditions:
+    - dbms:
+        type: postgresql
+
+  - include:
+      file: "agency/changeLog.yml"
+      relativeToChangelogFile: true
+      
+  - include:
+      file: "altitude_datum/changeLog.yml"
+      relativeToChangelogFile: true
+
+  - include:
+      file: "altitude_method/changeLog.yml"
+      relativeToChangelogFile: true
+
+  - include:
+      file: "aquifer/changeLog.yml"
+      relativeToChangelogFile: true
+
+  - include:
+      file: "country/changeLog.yml"
+      relativeToChangelogFile: true
+
+  - include:
+      file: "county/changeLog.yml"
+      relativeToChangelogFile: true
+
+  - include:
+      file: "horizontal_accuracy/changeLog.yml"
+      relativeToChangelogFile: true
+
+  - include:
+      file: "horizontal_datum/changeLog.yml"
+      relativeToChangelogFile: true
+
+  - include:
+      file: "horizontal_method/changeLog.yml"
+      relativeToChangelogFile: true
+
+  - include:
+      file: "hydrologic_unit/changeLog.yml"
+      relativeToChangelogFile: true
+
+  - include:
+      file: "minor_civil_division/changeLog.yml"
+      relativeToChangelogFile: true
+
+  - include:
+      file: "monitoring_location/changeLog.yml"
+      relativeToChangelogFile: true
+
+  - include:
+      file: "monitoring_location_type/changeLog.yml"
+      relativeToChangelogFile: true
+
+  - include:
+      file: "national_aquifer/changeLog.yml"
+      relativeToChangelogFile: true
+
+  - include:
+      file: "state/changeLog.yml"
+      relativeToChangelogFile: true
+
+  - include:
+      file: "use/changeLog.yml"
+      relativeToChangelogFile: true
+
+  - include:
+      file: "monitoring_location_use_rel/changeLog.yml"
+      relativeToChangelogFile: true
+
+  - include:
+      file: "monitoring_location_agency_rel/changeLog.yml"
+      relativeToChangelogFile: true

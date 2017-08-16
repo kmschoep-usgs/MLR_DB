@@ -1,0 +1,59 @@
+databaseChangeLog:
+  - preConditions:
+    - dbms:
+        type: postgresql
+
+  - changeSet:
+      author: mhines
+      id: "create.table.minor_civil_division"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+        - not:
+          - tableExists:
+              tableName: minor_civil_division
+      changes:
+        - sqlFile:
+            path: minor_civil_division.sql
+            relativeToChangelogFile: true
+        - rollback: drop table mlr_data.minor_civil_division;
+
+  - changeSet:
+      author: kmschoep
+      id: "alter.column.minor_civil_division_id.default.sequence"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter table mlr_data.minor_civil_division alter column minor_civil_division_id set default nextval('mlr_data.minor_civil_division_seq');
+        - rollback: alter table mlr_data.minor_civil_division alter column minor_civil_division_id set default null;
+
+  - changeSet:
+      author: kmschoep
+      id: "alter.sequence.minor_civil_division_seq.owned_by"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter sequence mlr_data.minor_civil_division_seq owned by mlr_data.minor_civil_division.minor_civil_division_id;
+        - rollback: alter sequence mlr_data.minor_civil_division_seq owned by none;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.index.minor_civil_division.minor_civil_division_code_idx"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: create index minor_civil_division_code_idx on mlr_data.minor_civil_division (code);
+        - rollback: drop index mlr_data.minor_civil_division_code_idx;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.index.hydrologic_unit.minor_civil_division_name_idx"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: create index minor_civil_division_name_idx on mlr_data.minor_civil_division (name);
+        - rollback: drop index mlr_data.minor_civil_division_name_idx;

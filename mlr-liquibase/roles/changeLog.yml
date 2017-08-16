@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - preConditions:
+    - dbms:
+        type: postgresql
+    - runningAs:
+        username: mlr
+
+  - include:
+      file: "roles.yml"
+      relativeToChangelogFile: true
+
+  - include:
+      file: "schemas.yml"
+      relativeToChangelogFile: true

@@ -1,0 +1,184 @@
+databaseChangeLog:
+  - preConditions:
+    - dbms:
+        type: postgresql
+
+  - changeSet:
+      author: kmschoep
+      id: "create.monitoring_location.agency_fk"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter table mlr_data.monitoring_location add constraint agency_fk foreign key (primary_agency_id) references mlr_data.agency (agency_id) match simple on update no action on delete no action;
+        - rollback: alter table mlr_data.monitoring_location drop constraint agency_fk;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.monitoring_location.altitude_datum_fk"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter table mlr_data.monitoring_location add constraint altitude_datum_fk foreign key (altitude_datum_id) references mlr_data.altitude_datum (altitude_datum_id) match simple on update no action on delete no action;
+        - rollback: alter table mlr_data.monitoring_location drop constraint altitude_datum_fk;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.monitoring_location.altitude_method_fk"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter table mlr_data.monitoring_location add constraint altitude_method_fk foreign key (altitude_method_id) references mlr_data.altitude_method (altitude_method_id) match simple on update no action on delete no action;
+        - rollback: alter table mlr_data.monitoring_location drop constraint altitude_method_fk;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.monitoring_location.aquifer_fk"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter table mlr_data.monitoring_location add constraint aquifer_fk foreign key (aquifer_id) references mlr_data.aquifer (aquifer_id) match simple on update no action on delete no action;
+        - rollback: alter table mlr_data.monitoring_location drop constraint aquifer_fk;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.monitoring_location.country_fk"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter table mlr_data.monitoring_location add constraint country_fk foreign key (country_id) references mlr_data.country (country_id) match simple on update no action on delete no action;
+        - rollback: alter table mlr_data.monitoring_location drop constraint country_fk;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.monitoring_location.county_fk"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter table mlr_data.monitoring_location add constraint county_fk foreign key (county_id) references mlr_data.county (county_id) match simple on update no action on delete no action;
+        - rollback: alter table mlr_data.monitoring_location drop constraint county_fk;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.monitoring_location.horizontal_accuracy_fk"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter table mlr_data.monitoring_location add constraint horizontal_accuracy_fk foreign key (horizontal_accuracy_id) references mlr_data.horizontal_accuracy (horizontal_accuracy_id) match simple on update no action on delete no action;
+        - rollback: alter table mlr_data.monitoring_location drop constraint horizontal_accuracy_fk;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.monitoring_location.horizontal_datum_fk"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter table mlr_data.monitoring_location add constraint horizontal_datum_fk foreign key (horizontal_datum_id) references mlr_data.horizontal_datum (horizontal_datum_id) match simple on update no action on delete no action;
+        - rollback: alter table mlr_data.monitoring_location drop constraint horizontal_datum_fk;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.monitoring_location.horizontal_method_fk"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter table mlr_data.monitoring_location add constraint horizontal_method_fk foreign key (horizontal_method_id) references mlr_data.horizontal_method (horizontal_method_id) match simple on update no action on delete no action;
+        - rollback: alter table mlr_data.monitoring_location drop constraint horizontal_method_fk;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.monitoring_location.hydrologic_unit_fk"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter table mlr_data.monitoring_location add constraint hydrologic_unit_fk foreign key (hydrologic_unit_id) references mlr_data.hydrologic_unit (hydrologic_unit_id) match simple on update no action on delete no action;
+        - rollback: alter table mlr_data.monitoring_location drop constraint hydrologic_unit_fk;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.monitoring_location.minor_civil_division_fk"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter table mlr_data.monitoring_location add constraint minor_civil_division_fk foreign key (minor_civil_division_id) references mlr_data.minor_civil_division (minor_civil_division_id) match simple on update no action on delete no action;
+        - rollback: alter table mlr_data.monitoring_location drop constraint minor_civil_division_fk;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.monitoring_location.national_aquifer_fk"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter table mlr_data.monitoring_location add constraint national_aquifer_fk foreign key (national_aquifer_id) references mlr_data.national_aquifer (national_aquifer_id) match simple on update no action on delete no action;
+        - rollback: alter table mlr_data.monitoring_location drop constraint national_aquifer_fk;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.monitoring_location.state_fk"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter table mlr_data.monitoring_location add constraint state_fk foreign key (state_id) references mlr_data.state (state_id) match simple on update no action on delete no action;
+        - rollback: alter table mlr_data.monitoring_location drop constraint state_fk;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.monitoring_location.monitoring_location_type_fk"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter table mlr_data.monitoring_location add constraint monitoring_location_type_fk foreign key (monitoring_location_type_id) references mlr_data.monitoring_location_type (monitoring_location_type_id) match simple on update no action on delete no action;
+        - rollback: alter table mlr_data.monitoring_location drop constraint monitoring_location_type_fk;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.monitoring_location_use_rel.ml_use_rel_use_fk"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter table mlr_data.monitoring_location_use_rel add constraint ml_use_rel_use_fk foreign key (use_id) references mlr_data.use (use_id) match simple on update no action on delete no action;
+        - rollback: alter table mlr_data.monitoring_location_use_rel drop constraint ml_use_rel_use_fk;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.monitoring_location_use_rel.ml_use_rel_monitoring_location_fk"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter table mlr_data.monitoring_location_use_rel add constraint ml_use_rel_monitoring_location_fk foreign key (monitoring_location_id) references mlr_data.monitoring_location (monitoring_location_id) match simple on update no action on delete no action;
+        - rollback: alter table mlr_data.monitoring_location_use_rel drop constraint ml_use_rel_monitoring_location_fk;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.monitoring_location_agency_rel.ml_agency_rel_agency_fk"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter table mlr_data.monitoring_location_agency_rel add constraint ml_agency_rel_agency_fk foreign key (agency_id) references mlr_data.agency (agency_id) match simple on update no action on delete no action;
+        - rollback: alter table mlr_data.monitoring_location_agency_rel drop constraint ml_agency_rel_agency_fk;
+
+  - changeSet:
+      author: kmschoep
+      id: "create.monitoring_location_agency_rel.ml_agency_rel_monitoring_location_fk"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+      changes:
+        - sql: alter table mlr_data.monitoring_location_agency_rel add constraint ml_agency_rel_monitoring_location_fk foreign key (monitoring_location_id) references mlr_data.monitoring_location (monitoring_location_id) match simple on update no action on delete no action;
+        - rollback: alter table mlr_data.monitoring_location_agency_rel drop constraint ml_agency_rel_monitoring_location_fk;

@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - preConditions:
+    - dbms:
+        type: postgresql
+
+  - changeSet:
+      author: kmschoep
+      id: "create.table.monitoring_location_use_rel"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+        - not:
+          - tableExists:
+              tableName: monitoring_location_use_rel
+      changes:
+        - sqlFile:
+            path: monitoring_location_use_rel.sql
+            relativeToChangelogFile: true
+        - rollback: drop table mlr_data.monitoring_location_use_rel;
