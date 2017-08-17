@@ -8,7 +8,7 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" <<-EOSQL
 	alter database mlr owner to mlr;
 EOSQL
 
-#Create Schema
+#Create Schema (Must run as postgres root user)
 ${LIQUIBASE_HOME}/liquibase \
 --username postgres\
 --password ${POSTGRES_PASSWORD} \
