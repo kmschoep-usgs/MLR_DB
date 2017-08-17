@@ -10,7 +10,7 @@ EOSQL
 
 #Create Schema (Must run as postgres root user)
 ${LIQUIBASE_HOME}/liquibase \
---username postgres\
+--username postgres \
 --password ${POSTGRES_PASSWORD} \
 --driver org.postgresql.Driver \
 --url jdbc:postgresql://127.0.0.1:5432/mlr \
