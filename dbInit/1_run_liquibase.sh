@@ -10,8 +10,8 @@ EOSQL
 
 #Create Schema
 ${LIQUIBASE_HOME}/liquibase \
---username postgres \
---password postgres \
+--username postgres\
+--password ${POSTGRES_PASSWORD} \
 --driver org.postgresql.Driver \
 --url jdbc:postgresql://127.0.0.1:5432/mlr \
 --classpath=${LIQUIBASE_HOME}/lib/postgresql-${POSTGRES_JDBC_VERSION}.jar \
