@@ -1,25 +1,24 @@
 #!/bin/bash 
+
 # Restart postgres to make sure we can connect
 pg_ctl -D "$PGDATA" -m fast -o "$LOCALONLY" -w restart
 
-# create the mlr project user and database
-psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" <<-EOSQL
-	create role mlr with login createrole password '${MLR_PASSWORD}';
-	alter database mlr owner to mlr;
-EOSQL
-
-#Create Schema (Must run as postgres root user)
+# superuser scripts
 ${LIQUIBASE_HOME}/liquibase \
---username postgres \
---password ${POSTGRES_PASSWORD} \
---driver org.postgresql.Driver \
---url jdbc:postgresql://127.0.0.1:5432/mlr \
+--defaultsFile=${LIQUIBASE_HOME}/postgres.properties \
 --classpath=${LIQUIBASE_HOME}/lib/postgresql-${POSTGRES_JDBC_VERSION}.jar \
 --changeLogFile=${LIQUIBASE_HOME}/mlr-liquibase/postgres/changeLog.yml \
 --logLevel=debug \
 update \
-> ${LIQUIBASE_HOME}/liquibase.log
+-DMLR_PASSWORD=${MLR_PASSWORD} > ${LIQUIBASE_HOME}/liquibaseSuperuser.log
 
+# application database create scripts
+${LIQUIBASE_HOME}/liquibase \
+--defaultsFile=${LIQUIBASE_HOME}/databaseCreate.properties \
+--classpath=${LIQUIBASE_HOME}/lib/postgresql-${POSTGRES_JDBC_VERSION}.jar \
+--changeLogFile=${LIQUIBASE_HOME}/mlr-liquibase/database/changeLog.yml \
+--logLevel=debug \
+update > ${LIQUIBASE_HOME}/liquibaseDatabaseCreate.log
 #Create Roles
 ${LIQUIBASE_HOME}/liquibase \
 --defaultsFile=${LIQUIBASE_HOME}/liquibase.properties \

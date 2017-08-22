@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - preConditions:
+    - dbms:
+        type: postgresql
+    - runningAs:
+        username: mlr
+
+  - changeSet:
+      author: drsteini
+      id: "create.database.mlr"
+      preConditions:
+        - onFail: MARK_RAN
+        - onError: HALT
+        - sqlCheck:
+            expectedResult: 0
+            sql: select count(*) from pg_database where datname = 'mlr'
+      runInTransaction: false
+      changes:
+        - sql: create database mlr with owner = mlr;
+        - rollback: drop database mlr if exists;
