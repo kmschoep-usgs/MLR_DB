@@ -261,3 +261,21 @@ databaseChangeLog:
             tableName: use
             schemaName: mlr_data
         - rollback: select 'no rollback - you must restore previous use.csv and rerun manually';
+
+  - changeSet:
+      id: load.monitoring_location_type
+      author: kmschoep
+      runOnChange: true
+      changes:
+        - delete:
+            tableName: monitoring_location_type
+            schemaName: mlr_data
+        - loadData:
+            encoding: UTF-8
+            file: monitoring_location_type.csv
+            relativeToChangelogFile: true
+            separator: ','
+            quotchar: '"'
+            tableName: use
+            schemaName: mlr_data
+        - rollback: select 'no rollback - you must restore previous use.csv and rerun manually';
