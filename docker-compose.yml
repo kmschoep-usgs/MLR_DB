@@ -1,10 +1,13 @@
-version: '2'
+version: '3'
 services:
   mlr_db:
     build:
       context: .
     environment:
-      - POSTGRES_DB=mlr
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - MLR_PASSWORD=${MLR_PASSWORD}
+      - MLR_USER_PASSWORD=${MLR_USER_PASSWORD}
+      - MLR_DATA_PASSWORD=${MLR_DATA_PASSWORD}
     ports:
       - "5432:5432"
     container_name: mlr_db
