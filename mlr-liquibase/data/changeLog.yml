@@ -276,6 +276,6 @@ databaseChangeLog:
             relativeToChangelogFile: true
             separator: ','
             quotchar: '"'
-            tableName: use
+            tableName: monitoring_location_type
             schemaName: mlr_data
         - rollback: select 'no rollback - you must restore previous use.csv and rerun manually';
